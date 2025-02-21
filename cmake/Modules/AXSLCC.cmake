@@ -96,7 +96,7 @@ function (ax_target_compile_shaders target_name)
         set(SC_DEFINES "")
 
         # silent when compile shader success
-        set(SC_FLAGS "--silent" "--err-format=msvc")
+        set(SC_FLAGS "-f" "--err-format=msvc")
 
         # shader lang
         set(SC_PROFILE "")
