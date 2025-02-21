@@ -59,19 +59,24 @@ set(_AX_MIN_CXX_STD 20)
 if (NOT DEFINED CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD ${_AX_MIN_CXX_STD})
 endif()
+
+# Force C++20 for all targets
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Set compiler flags for C++20
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+endif()
+
 if (CMAKE_CXX_STANDARD GREATER_EQUAL ${_AX_MIN_CXX_STD})
     message(STATUS "Building axmol with c++${CMAKE_CXX_STANDARD}")
 else()
-    message(STATUS "Building axmol require c++ std >= ${_AX_MIN_CXX_STD}")
+    message(FATAL_ERROR "Building axmol requires C++20 or higher")
 endif()
-set(_AX_CXX_STD ${CMAKE_CXX_STANDARD} CACHE STRING "" FORCE)
 
-if(NOT DEFINED CMAKE_CXX_STANDARD_REQUIRED)
-    set(CMAKE_CXX_STANDARD_REQUIRED ON)
-endif()
-if(NOT DEFINED CMAKE_CXX_EXTENSIONS)
-    set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
+set(_AX_CXX_STD ${CMAKE_CXX_STANDARD} CACHE STRING "C++ standard for Axmol" FORCE)
 
 # check compiler on windows
 if(WINDOWS)
