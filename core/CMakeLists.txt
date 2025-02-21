@@ -97,10 +97,14 @@ cmake_dependent_option(AX_ENABLE_MSEDGE_WEBVIEW2 "Use Microsoft Edge webview2" O
 cmake_dependent_option(AX_ENABLE_MFMEDIA "Enabling microsoft media foundation" ON "WIN32" OFF)
 cmake_dependent_option(AX_ENABLE_VLC_MEDIA "Enabling vlc media" OFF "(WIN32 AND NOT WINRT) OR LINUX" OFF)
 
-if(NOT APPLE AND (NOT EMSCRIPTEN))
-    set(AX_USE_ALSOFT ON CACHE BOOL "" FORCE)
+# Audio backend options
+option(AX_USE_ALSOFT "Use OpenAL-Soft audio backend" ON)
+
+# Graphics API options
+if(APPLE)
+    option(AX_USE_METAL "Use Metal graphics API" OFF)
 else()
-    option(AX_USE_ALSOFT "Use ALSOFT on apple" OFF)
+    set(AX_USE_METAL OFF CACHE BOOL "Use Metal graphics API (Apple platforms only)" FORCE)
 endif()
 
 option(AX_ENABLE_PHYSICS "Build Physics support" ON)
@@ -485,3 +489,5 @@ endif()
 #    # TODO: Only turn this off if ${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET} < 11.0
 #    target_compile_options(${_AX_CORE_LIB} PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-fno-aligned-allocation>)
 #endif()
+
+include(AXOptions)
