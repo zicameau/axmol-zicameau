@@ -64,31 +64,17 @@ endif(COMMAND CMAKE_POLICY)
 
 project(OpenAL)
 
-# Add near the top, after project() declaration
+# Keep the C++ standard setting
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# For the specific targets
-target_compile_features(alcommon PRIVATE cxx_std_17)
-target_compile_features(OpenAL PRIVATE cxx_std_17)
-
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
-        "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
-        FORCE)
-endif()
-if(NOT CMAKE_DEBUG_POSTFIX)
-    set(CMAKE_DEBUG_POSTFIX "" CACHE STRING
-        "Library postfix for debug builds. Normally left blank."
-        FORCE)
-endif()
-
+# Add to DEFAULT_TARGET_PROPS
 set(DEFAULT_TARGET_PROPS
-    # Require C++17.
+    # Require C++17
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED TRUE
-    # Prefer C11, but support C99 and earlier when possible.
+    # Prefer C11, but support C99 and earlier when possible
     C_STANDARD 11)
 
 set(CMAKE_MODULE_PATH "${OpenAL_SOURCE_DIR}/cmake")
@@ -1345,7 +1331,7 @@ configure_file(
     @ONLY)
 
 
-add_library(alcommon STATIC EXCLUDE_FROM_ALL ${COMMON_OBJS})
+add_library(alcommon OBJECT ${COMMON_OBJS})
 target_include_directories(alcommon PRIVATE ${OpenAL_BINARY_DIR} ${OpenAL_SOURCE_DIR}/include)
 target_compile_definitions(alcommon PRIVATE ${CPP_DEFS})
 target_compile_options(alcommon PRIVATE ${C_FLAGS})
