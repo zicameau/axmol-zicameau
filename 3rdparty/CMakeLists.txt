@@ -412,11 +412,18 @@ if (AX_ENABLE_AUDIO)
                 CXX_STANDARD ${_AX_CXX_STD}
             )
         endif()
-    endif()
 
+        message(STATUS "DEBUG: OpenAL target check")
+        message(STATUS "OpenAL exists: ${TARGET OpenAL}")
+        message(STATUS "_AX_CXX_STD: ${_AX_CXX_STD}")
+        message(STATUS "ENGINE_BINARY_PATH: ${ENGINE_BINARY_PATH}")
+    endif()
 
     # The ogg decoder
     ax_add_3rd(ogg)
+
+    message(STATUS "DEBUG: alcommon target check")
+    message(STATUS "alcommon exists: ${TARGET alcommon}")
 endif()
 
 if(WINDOWS OR LINUX OR ANDROID OR WASM)

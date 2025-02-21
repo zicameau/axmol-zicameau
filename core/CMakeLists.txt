@@ -487,3 +487,8 @@ endif()
 include(AXOptions)
 
 include(AXBuildHelpers)
+
+# Add near the top, after the initial includes
+message(STATUS "DEBUG: Module paths")
+message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
+message(STATUS "Current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
