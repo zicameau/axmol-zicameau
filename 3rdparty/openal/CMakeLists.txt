@@ -62,7 +62,15 @@ if(COMMAND CMAKE_POLICY)
     endif(POLICY CMP0117)
 endif(COMMAND CMAKE_POLICY)
 
+# Enable C++ language support explicitly
+enable_language(CXX)
+
 project(OpenAL)
+
+# Set compiler flags for Clang specifically
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+endif()
 
 # Keep the C++ standard setting
 set(CMAKE_CXX_STANDARD 20)
@@ -71,10 +79,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add to DEFAULT_TARGET_PROPS
 set(DEFAULT_TARGET_PROPS
-    # Require C++17
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED TRUE
-    # Prefer C11, but support C99 and earlier when possible
+    CXX_EXTENSIONS OFF
     C_STANDARD 11)
 
 set(CMAKE_MODULE_PATH "${OpenAL_SOURCE_DIR}/cmake")
