@@ -1,6 +1,6 @@
 # CMake build file list for OpenAL
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 enable_testing()
 
 if(APPLE)
@@ -62,20 +62,22 @@ if(COMMAND CMAKE_POLICY)
     endif(POLICY CMP0117)
 endif(COMMAND CMAKE_POLICY)
 
-# Enable C++ language support explicitly
+# Enable languages explicitly
+enable_language(C)
 enable_language(CXX)
 
 project(OpenAL)
 
-# Set compiler flags for Clang specifically
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
-endif()
-
-# Keep the C++ standard setting
+# Force C++20 for all targets
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Add compiler-specific flags
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -stdlib=libc++")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+endif()
 
 # Add to DEFAULT_TARGET_PROPS
 set(DEFAULT_TARGET_PROPS
