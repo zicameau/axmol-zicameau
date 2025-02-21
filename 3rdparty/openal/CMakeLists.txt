@@ -65,14 +65,14 @@ endif(COMMAND CMAKE_POLICY)
 project(OpenAL)
 
 # Keep the C++ standard setting
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add to DEFAULT_TARGET_PROPS
 set(DEFAULT_TARGET_PROPS
     # Require C++17
-    CXX_STANDARD 17
+    CXX_STANDARD 20
     CXX_STANDARD_REQUIRED TRUE
     # Prefer C11, but support C99 and earlier when possible
     C_STANDARD 11)
