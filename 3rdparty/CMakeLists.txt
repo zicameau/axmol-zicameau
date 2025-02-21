@@ -398,32 +398,35 @@ if (AX_ENABLE_AUDIO)
         target_include_directories(3rdparty INTERFACE openal)
         target_compile_definitions(3rdparty INTERFACE AX_USE_ALSOFT=1)
 
+        message(STATUS "DEBUG: OpenAL target check")
         if(TARGET OpenAL)
-            set_target_properties(OpenAL PROPERTIES
-                CXX_STANDARD ${_AX_CXX_STD}
-                RUNTIME_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
-                LIBRARY_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
-                ARCHIVE_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
-            )
+            message(STATUS "OpenAL target exists")
+            message(STATUS "_AX_CXX_STD: ${_AX_CXX_STD}")
+            message(STATUS "ENGINE_BINARY_PATH: ${ENGINE_BINARY_PATH}")
         endif()
 
         if(TARGET alcommon)
-            set_target_properties(alcommon PROPERTIES 
-                CXX_STANDARD ${_AX_CXX_STD}
-            )
+            set_target_properties(alcommon 
+                PROPERTIES
+                    CXX_STANDARD "${_AX_CXX_STD}")
+            message(STATUS "DEBUG: alcommon target check")
+            if(TARGET alcommon)
+                message(STATUS "alcommon target exists")
+            endif()
         endif()
 
-        message(STATUS "DEBUG: OpenAL target check")
-        message(STATUS "OpenAL exists: ${TARGET OpenAL}")
-        message(STATUS "_AX_CXX_STD: ${_AX_CXX_STD}")
-        message(STATUS "ENGINE_BINARY_PATH: ${ENGINE_BINARY_PATH}")
+        if(TARGET OpenAL)
+            set_target_properties(OpenAL 
+                PROPERTIES
+                    CXX_STANDARD "${_AX_CXX_STD}"
+                    RUNTIME_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
+                    LIBRARY_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
+                    ARCHIVE_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}")
+        endif()
     endif()
 
     # The ogg decoder
     ax_add_3rd(ogg)
-
-    message(STATUS "DEBUG: alcommon target check")
-    message(STATUS "alcommon exists: ${TARGET alcommon}")
 endif()
 
 if(WINDOWS OR LINUX OR ANDROID OR WASM)
