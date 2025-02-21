@@ -1,4 +1,3 @@
-
 project(3rdparty)
 
 option(AX_WITH_JPEG "Build with internal jpeg support" ON)
@@ -398,7 +397,19 @@ if (AX_ENABLE_AUDIO)
 
         target_include_directories(3rdparty INTERFACE openal)
         target_compile_definitions(3rdparty INTERFACE AX_USE_ALSOFT=1)
-        set_target_properties(OpenAL alcommon PROPERTIES CXX_STANDARD ${_AX_CXX_STD})
+
+        if(TARGET OpenAL)
+            set_target_properties(OpenAL PROPERTIES
+                CXX_STANDARD ${_AX_CXX_STD}
+                RUNTIME_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
+                LIBRARY_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
+                ARCHIVE_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
+            )
+        endif()
+
+        if(TARGET alcommon)
+            set_target_properties(alcommon PROPERTIES CXX_STANDARD ${_AX_CXX_STD})
+        endif()
 
         if (AX_USE_ALSOFT_STATIC)
             target_compile_definitions(3rdparty INTERFACE AL_LIBTYPE_STATIC=1)

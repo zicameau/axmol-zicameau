@@ -1,3 +1,4 @@
+include(AXSourceGroups)
 
 set(lib_name yasio)
 set(target_name ${lib_name})
