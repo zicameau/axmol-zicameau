@@ -64,6 +64,15 @@ endif(COMMAND CMAKE_POLICY)
 
 project(OpenAL)
 
+# Add near the top, after project() declaration
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# For the specific targets
+target_compile_features(alcommon PRIVATE cxx_std_17)
+target_compile_features(OpenAL PRIVATE cxx_std_17)
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
         "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
