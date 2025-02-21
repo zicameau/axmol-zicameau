@@ -410,18 +410,6 @@ if (AX_ENABLE_AUDIO)
         if(TARGET alcommon)
             set_target_properties(alcommon PROPERTIES CXX_STANDARD ${_AX_CXX_STD})
         endif()
-
-        if(TARGET OpenAL)
-            set_target_properties(OpenAL PROPERTIES
-                RUNTIME_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
-                LIBRARY_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
-                ARCHIVE_OUTPUT_DIRECTORY "${ENGINE_BINARY_PATH}"
-            )
-        endif()
-
-        if(TARGET alcommon)
-            set_target_properties(alcommon PROPERTIES CXX_STANDARD ${_AX_CXX_STD})
-        endif()
     endif()
 
 
