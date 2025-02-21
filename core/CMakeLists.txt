@@ -50,8 +50,15 @@ endif()
 
 include(CMakeDependentOption)
 
+message(STATUS "DEBUG: Before dependent options")
+message(STATUS "  AX_USE_GL = ${AX_USE_GL}")
+message(STATUS "  AX_USE_METAL = ${AX_USE_METAL}")
+message(STATUS "  AX_USE_VULKAN = ${AX_USE_VULKAN}")
+message(STATUS "  AX_USE_WEBGPU = ${AX_USE_WEBGPU}")
+
 # by default: use angle on win32
 cmake_dependent_option(AX_USE_COMPAT_GL "Whether use compatibility GL as render backend" ${WIN32} "WIN32 OR APPLE" OFF)
+message(STATUS "DEBUG: AX_USE_COMPAT_GL = ${AX_USE_COMPAT_GL}")
 
 # choosing render backend for all target platforms: win32, winuwp, ios, tvos, android, linux, osx
 if(APPLE AND (NOT AX_USE_COMPAT_GL))
@@ -492,3 +499,10 @@ include(AXBuildHelpers)
 message(STATUS "DEBUG: Module paths")
 message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 message(STATUS "Current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
+
+message(STATUS "DEBUG: After dependent options")
+message(STATUS "  AX_USE_GL = ${AX_USE_GL}")
+message(STATUS "  AX_USE_METAL = ${AX_USE_METAL}")
+message(STATUS "  AX_USE_VULKAN = ${AX_USE_VULKAN}")
+message(STATUS "  AX_USE_WEBGPU = ${AX_USE_WEBGPU}")
+message(STATUS "  AX_USE_COMPAT_GL = ${AX_USE_COMPAT_GL}")
