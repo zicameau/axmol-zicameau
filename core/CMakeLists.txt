@@ -56,9 +56,37 @@ message(STATUS "  AX_USE_METAL = ${AX_USE_METAL}")
 message(STATUS "  AX_USE_VULKAN = ${AX_USE_VULKAN}")
 message(STATUS "  AX_USE_WEBGPU = ${AX_USE_WEBGPU}")
 
-# by default: use angle on win32
-cmake_dependent_option(AX_USE_COMPAT_GL "Whether use compatibility GL as render backend" ${WIN32} "WIN32 OR APPLE" OFF)
-message(STATUS "DEBUG: AX_USE_COMPAT_GL = ${AX_USE_COMPAT_GL}")
+# First, ensure we have the required includes
+include(CMakeDependentOption)
+
+# Initialize the base options first
+if(NOT DEFINED AX_USE_GL)
+    set(AX_USE_GL ON CACHE BOOL "Use OpenGL as render backend")
+endif()
+
+if(NOT DEFINED AX_USE_METAL)
+    set(AX_USE_METAL OFF CACHE BOOL "Use Metal as render backend")
+endif()
+
+option(AX_USE_VULKAN "Use Vulkan" OFF)
+option(AX_USE_WEBGPU "Use WebGPU" OFF)
+
+# Then set up the dependent option
+cmake_dependent_option(
+    AX_USE_COMPAT_GL 
+    "Whether use compatibility GL as render backend" 
+    OFF  # Default value if condition is true
+    "WIN32 OR APPLE"  # Condition
+    OFF  # Value if condition is false
+)
+
+# Add debug output
+message(STATUS "Graphics API configuration:")
+message(STATUS "  AX_USE_GL: ${AX_USE_GL}")
+message(STATUS "  AX_USE_METAL: ${AX_USE_METAL}")
+message(STATUS "  AX_USE_VULKAN: ${AX_USE_VULKAN}")
+message(STATUS "  AX_USE_WEBGPU: ${AX_USE_WEBGPU}")
+message(STATUS "  AX_USE_COMPAT_GL: ${AX_USE_COMPAT_GL}")
 
 # choosing render backend for all target platforms: win32, winuwp, ios, tvos, android, linux, osx
 if(APPLE AND (NOT AX_USE_COMPAT_GL))
