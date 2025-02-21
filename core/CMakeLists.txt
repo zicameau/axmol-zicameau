@@ -99,8 +99,7 @@ cmake_dependent_option(AX_ENABLE_VLC_MEDIA "Enabling vlc media" OFF "(WIN32 AND 
 
 include(CMakeDependentOption)
 
-cmake_dependent_option(AX_USE_ALSOFT "Use OpenAL-Soft audio backend" ON
-    "NOT EMSCRIPTEN" OFF)
+cmake_dependent_option(AX_USE_ALSOFT "Use OpenAL-Soft audio backend" ON "NOT EMSCRIPTEN" OFF)
 
 option(AX_ENABLE_PHYSICS "Build Physics support" ON)
 cmake_dependent_option(AX_ENABLE_MEDIA "Build media support" ON "AX_ENABLE_MFMEDIA OR AX_ENABLE_VLC_MEDIA OR APPLE OR ANDROID" OFF)
@@ -486,3 +485,5 @@ endif()
 #endif()
 
 include(AXOptions)
+
+include(AXBuildHelpers)

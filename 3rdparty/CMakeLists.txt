@@ -408,7 +408,9 @@ if (AX_ENABLE_AUDIO)
         endif()
 
         if(TARGET alcommon)
-            set_target_properties(alcommon PROPERTIES CXX_STANDARD ${_AX_CXX_STD})
+            set_target_properties(alcommon PROPERTIES 
+                CXX_STANDARD ${_AX_CXX_STD}
+            )
         endif()
     endif()
 
